@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+.login-container {
+	margin: auto;
+	/* border: 1px solid green; */
+	width: 35%;
+	/* border: 1px solid grey; */
+	padding: 2rem 0 0 0;
+}
+
+.login-card {
+	margin: 1rem 0 0 0;
+	border: 1px solid grey;
+	border-radius: 8px 8px 8px 8px;
+	box-shadow: 5px 3px 8px #999999;
+}
+
+.login-title {
+	margin: auto;
+	text-align: center;
+	padding: 2rem 0 2rem 0;
+	font-family: "Pacifico", cursive;
+	font-weight: 700;
+	font-size: 3rem;
+	/* border: 1px solid red; */
+}
+
+.login-form {
+	margin: auto;
+	width: 90%;
+	/* border: 1px solid purple; */
+	padding: 2rem 2rem 2rem 2rem;
+}
+
+.login-field {
+	/* border: 1px solid blue; */
+	margin: auto;
+	padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+	margin: 0.3rem 0 0 0;
+}
+.login-input {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.6rem;
+}
+
+.login-submit {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 2rem 55% 0 45%;
+}
+
+.btn-submit {
+	padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+	background-color: green;
+	color: white;
+	border: 1px solid green;
+	border-radius: 5px;
+	font-size: 1rem;
+}
+
+/* Media Query */
+
+@media all and (max-width: 375px) {
+	.login-container {
+		margin: auto;
+		/* border: 1px solid green; */
+		width: 90%;
+		/* border: 1px solid grey; */
+	}
+
+	.login-form {
+		margin: auto;
+		width: 100%;
+		/* border: 1px solid purple; */
+		padding: 0 0 0 0;
+	}
+
+	.login-submit {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 1rem 58% 1rem 42%;
+	}
+
+	.login-title {
+		margin: auto;
+		text-align: center;
+		padding: 2rem 0 2rem 0;
+		font-family: "Pacifico", cursive;
+		font-weight: 700;
+		font-size: 2rem;
+		/* border: 1px solid red; */
+	}
+}
