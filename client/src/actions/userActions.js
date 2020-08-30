@@ -1,6 +1,15 @@
 //imports
-import { REGISTER_USER, LOGIN_USER, INPUT_TEXT, CLEAR_INPUT } from "./types"
+import {
+	REGISTER_SUCCESS,
+	REGISTER_FAIL,
+	INPUT_TEXT,
+	CLEAR_INPUT,
+	USER_LOADED,
+	AUTH_ERROR,
+	LOGOUT_USER,
+} from "./types"
 import axios from "axios"
+import setAuthToken from "../utils/setAuthToken"
 
 //ACTIONS
 
@@ -12,19 +21,54 @@ export const onInput = (details) => (dispatch) => {
 	})
 }
 
+//load user
+export const loadUser = () => async (dispatch) => {
+	setAuthToken(localStorage.getItem("token"))
+	try {
+		const response = await axios.get("/users/auth")
+		console.log("User data (load user action)", response.data.user)
+		dispatch({
+			type: USER_LOADED,
+			payload: response.data.user,
+		})
+	} catch (err) {
+		console.log(err)
+		dispatch({
+			type: AUTH_ERROR,
+		})
+	}
+}
+
 // register user
 export const registerUser = (userdetails) => async (dispatch) => {
-	console.log("Register User Action Called")
-	console.log(userdetails)
-
+	console.log("registerUser called")
 	try {
 		const response = await axios.post("/users/signup", userdetails)
-	} catch (error) {}
+		console.log(response.data)
+		dispatch({
+			type: REGISTER_SUCCESS,
+			payload: response.data,
+		})
+		dispatch(loadUser())
+	} catch (err) {
+		console.log(err.response.data.error)
+		dispatch({
+			type: REGISTER_FAIL,
+			payload: err.response.data.error,
+		})
+	}
 }
 
 //login user
-export const login = () => (dispatch) => {
-	console.log("Action login Called")
+export const login = () => async (dispatch) => {
+	console.log("User login action")
+}
+
+//logout user
+export const logout = () => async (dispatch) => {
+	dispatch({
+		type: LOGOUT_USER,
+	})
 }
 
 //clear input fields

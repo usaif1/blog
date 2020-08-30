@@ -1,5 +1,5 @@
 //dependencies
-import React from "react"
+import React, { useEffect } from "react"
 import { connect } from "react-redux"
 
 //imports
@@ -7,7 +7,12 @@ import Navbar from "../Layout/Navbar"
 import "./Register.css"
 
 //importing actions
-import { registerUser, onInput, clearInput } from "../../actions/userActions"
+import {
+	registerUser,
+	onInput,
+	clearInput,
+	loadUser,
+} from "../../actions/userActions"
 
 const Register = (props) => {
 	const onchangeHandler = (e) => {
@@ -18,17 +23,22 @@ const Register = (props) => {
 		props.onInput(details)
 	}
 
-	const onSubmitHandler = (e) => {
+	const onSubmitHandler = async (e) => {
 		e.preventDefault()
 		const userdetails = {
 			username: props.user.username,
 			email: props.user.email,
 			password: props.user.password,
 		}
-		console.log(userdetails)
-		props.registerUser(userdetails)
+		await props.registerUser(userdetails)
 		props.clearInput()
 	}
+
+	useEffect(() => {
+		if (props.auth.isAuthenticated && props.auth.user) {
+			props.history.push(`/profile/${props.auth.user._id}`)
+		}
+	}, [props.auth.isAuthenticated, props.history, props.auth.user])
 
 	return (
 		<div>
@@ -36,14 +46,16 @@ const Register = (props) => {
 			<div className="register-container">
 				<div className="register-card">
 					<h1 className="register-title">Register New User</h1>
-					<form className="register-form" onSubmit={(e) => onSubmitHandler(e)}>
+					<form className="register-form" onSubmit={onSubmitHandler}>
 						<div className="register-field">
 							<input
 								type="text"
 								placeholder="Username"
 								className="register-input"
 								name="username"
+								value={props.user.username}
 								onChange={onchangeHandler}
+								required
 							/>
 						</div>
 						<div className="register-field">
@@ -52,7 +64,9 @@ const Register = (props) => {
 								placeholder="Email"
 								className="register-input"
 								name="email"
+								value={props.user.email}
 								onChange={onchangeHandler}
+								required
 							/>
 						</div>
 						<div className="register-field">
@@ -61,7 +75,9 @@ const Register = (props) => {
 								placeholder="Password"
 								className="register-input"
 								name="password"
+								value={props.user.password}
 								onChange={onchangeHandler}
+								required
 							/>
 						</div>
 						<div className="register-submit">
@@ -76,8 +92,12 @@ const Register = (props) => {
 
 const mapStateToProps = (state) => ({
 	user: state.user,
+	auth: state.auth,
 })
 
-export default connect(mapStateToProps, { registerUser, onInput, clearInput })(
-	Register
-)
+export default connect(mapStateToProps, {
+	registerUser,
+	onInput,
+	clearInput,
+	loadUser,
+})(Register)

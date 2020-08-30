@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken")
 const config = require("config")
 const { check, validationResult } = require("express-validator")
 
+//middleware
+const auth = require("../middleware/auth")
+
 // imports
 const User = require("../model/userModel")
 
@@ -31,13 +34,15 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req)
 		if (!errors.isEmpty()) {
-			return res.json({ errors: errors })
+			return res.status(400).json({ error: errors.errors })
 		}
 		const { username, email, password } = req.body
 		const secret = config.get("jwtSecret")
 		const existingUser = await User.findOne({ email: email })
 		if (existingUser) {
-			res.json({ Err: "Email already registered. Please sign in instead" })
+			res
+				.status(400)
+				.json({ error: "Email already registered. Please sign in instead" })
 			return
 		}
 
@@ -53,7 +58,7 @@ router.post(
 
 		jwt.sign(payload, secret, (err, token) => {
 			if (err) return console.log(err)
-			res.json({ token: token, user: newUser })
+			res.json({ token: token })
 		})
 	}
 )
@@ -103,6 +108,17 @@ router.post(
 		}
 	}
 )
+
+////route - GET /users/auth
+//desc	- get logged in user
+router.get("/auth", auth, async (req, res) => {
+	try {
+		const user = await User.findById(req.user.id).select("-password")
+		res.json({ user })
+	} catch (error) {
+		res.status(500).json({ error: "Server Error" })
+	}
+})
 
 // -------------------------------VIEWS-------------------------------//
 
