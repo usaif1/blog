@@ -6,6 +6,7 @@ import {
 	LOGOUT_USER,
 	LOGIN_FAIL,
 	LOGIN_SUCCESS,
+	CLEAR_ERRORS,
 } from "../actions/types"
 
 const initialState = {
@@ -44,6 +45,7 @@ export default function (state = initialState, action) {
 				token: null,
 				isAuthenticated: false,
 				user: null,
+				error: null,
 			}
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
@@ -55,6 +57,11 @@ export default function (state = initialState, action) {
 				token: null,
 				error: action.payload,
 				isAuthenticated: false,
+			}
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null,
 			}
 
 		default: {

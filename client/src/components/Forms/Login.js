@@ -1,10 +1,17 @@
 //dependencies
 import React, { useEffect } from "react"
+import { connect } from "react-redux"
+import { v4 as uuid } from "uuid"
 
 //imports
 import Navbar from "../Layout/Navbar"
-import { onInput, clearInput, login } from "../../actions/userActions"
-import { connect } from "react-redux"
+import {
+	onInput,
+	clearInput,
+	login,
+	clearErrors,
+} from "../../actions/userActions"
+import ErrorMessage from "../Error/ErrorMessage"
 import "./Login.css"
 
 const Login = (props) => {
@@ -31,7 +38,14 @@ const Login = (props) => {
 		if (props.auth.isAuthenticated && props.auth.user) {
 			props.history.push(`/profile/${props.auth.user._id}`)
 		}
-	}, [props.auth.isAuthenticated, props.auth.user])
+		//eslint-disable-next-line
+	}, [props.auth.isAuthenticated, props.auth.user, props.history])
+
+	const errors = props.auth.error
+		? props.auth.error.map((error) => (
+				<ErrorMessage key={uuid()} errorMsg={error.msg} />
+		  ))
+		: null
 
 	return (
 		<div>
@@ -65,6 +79,7 @@ const Login = (props) => {
 						</div>
 					</form>
 				</div>
+				{errors}
 			</div>
 		</div>
 	)
@@ -75,4 +90,9 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 })
 
-export default connect(mapStateToProps, { onInput, clearInput, login })(Login)
+export default connect(mapStateToProps, {
+	onInput,
+	clearInput,
+	login,
+	clearErrors,
+})(Login)

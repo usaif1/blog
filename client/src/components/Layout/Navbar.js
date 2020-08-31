@@ -1,11 +1,17 @@
 //dependencies
 import React from "react"
 import { Link } from "react-router-dom"
+import { connect } from "react-redux"
 
 //imports
 import "./Navbar.css"
+import { clearErrors } from "../../actions/userActions"
 
-const Navbar = () => {
+const Navbar = (props) => {
+	const clearErrorsHandler = (e) => {
+		props.clearErrors()
+	}
+
 	return (
 		<div className="navbar-container">
 			<ul className="ul">
@@ -19,12 +25,16 @@ const Navbar = () => {
 				<div className="empty-div"></div>
 				<div className="li-container">
 					<li className="navbar-li">
-						<Link to="/register" className="nav-link">
+						<Link
+							to="/register"
+							className="nav-link"
+							onClick={clearErrorsHandler}
+						>
 							Register
 						</Link>
 					</li>
 					<li className="navbar-li">
-						<Link to="/login" className="nav-link">
+						<Link to="/login" className="nav-link" onClick={clearErrorsHandler}>
 							Login
 						</Link>
 					</li>
@@ -34,4 +44,4 @@ const Navbar = () => {
 	)
 }
 
-export default Navbar
+export default connect(null, { clearErrors })(Navbar)

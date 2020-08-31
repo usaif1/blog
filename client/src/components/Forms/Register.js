@@ -14,6 +14,7 @@ import {
 	onInput,
 	clearInput,
 	loadUser,
+	clearErrors,
 } from "../../actions/userActions"
 
 const Register = (props) => {
@@ -40,12 +41,9 @@ const Register = (props) => {
 		if (props.auth.isAuthenticated && props.auth.user) {
 			props.history.push(`/profile/${props.auth.user._id}`)
 		}
-	}, [
-		props.auth.isAuthenticated,
-		props.history,
-		props.auth.user,
-		props.auth.error,
-	])
+
+		//eslint-disable-next-line
+	}, [props.auth.isAuthenticated, props.history, props.auth.user])
 
 	const errors = props.auth.error
 		? props.auth.error.map((error) => (
@@ -114,4 +112,5 @@ export default connect(mapStateToProps, {
 	onInput,
 	clearInput,
 	loadUser,
+	clearErrors,
 })(Register)

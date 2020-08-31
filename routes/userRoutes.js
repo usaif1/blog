@@ -41,7 +41,7 @@ router.post(
 		if (existingUser) {
 			res
 				.status(400)
-				.json({ error: "Email already registered. Sign in instead" })
+				.json({ error: [{ msg: "Email already registered. Sign in instead" }] })
 			return
 		}
 
@@ -67,21 +67,22 @@ router.post(
 router.post(
 	"/login",
 	[
-		check("email", "Please enter a valid email").isEmail(),
-		check(
-			"password",
-			"Please enter a password with 6 or more characters"
-		).isLength({ min: 6 }),
+		check("email", "Invalid Credentials").isEmail(),
+		check("password", "Invalid Credentials").isLength({
+			min: 6,
+		}),
 	],
 	async (req, res) => {
+		const errors = validationResult(req)
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ error: errors.errors })
+		}
 		const secret = config.get("jwtSecret")
 		const { email, password } = req.body
 		try {
 			const existingUser = await User.findOne({ email: email })
 			if (!existingUser) {
-				res
-					.status(404)
-					.json({ error: "No user found", email: email, password: password })
+				res.status(404).json({ error: [{ msg: "No user found" }] })
 				return
 			}
 			const isMatch = await bcrypt.compare(password, existingUser.password)
@@ -94,14 +95,14 @@ router.post(
 					},
 				}
 				const jwtToken = jwt.sign(payload, secret, (err, token) => {
-					if (err) return res.send("Token Error")
+					if (err) return res.status(400).send("Token Error")
 
 					res.json({
 						token: token,
 					})
 				})
 			} else {
-				res.json({ Err: "Invalid Credentials" })
+				res.status(400).json({ error: [{ msg: "Invalid Credentials" }] })
 			}
 		} catch (err) {
 			console.log(err)
@@ -117,7 +118,7 @@ router.get("/auth", auth, async (req, res) => {
 		const user = await User.findById(req.user.id).select("-password")
 		res.json({ user })
 	} catch (error) {
-		res.status(500).json({ error: "Server Error" })
+		res.status(500).json({ error: [{ msg: "Server Error" }] })
 	}
 })
 

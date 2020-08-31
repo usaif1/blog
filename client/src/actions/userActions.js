@@ -9,6 +9,7 @@ import {
 	LOGOUT_USER,
 	LOGIN_FAIL,
 	LOGIN_SUCCESS,
+	CLEAR_ERRORS,
 } from "./types"
 import axios from "axios"
 import setAuthToken from "../utils/setAuthToken"
@@ -53,12 +54,13 @@ export const registerUser = (userdetails) => async (dispatch) => {
 		})
 		dispatch(loadUser())
 	} catch (err) {
+		// console.log(err.response.data.error)
 		let error
 		err.response.data.error !== undefined
 			? (error = err.response.data.error)
 			: (error = "Can't connect to server")
 
-		console.log(error)
+		// console.log(error)
 
 		dispatch({
 			type: REGISTER_FAIL,
@@ -78,16 +80,17 @@ export const login = (userdetails) => async (dispatch) => {
 		})
 		dispatch(loadUser())
 	} catch (err) {
+		// console.log(err.response.data.error)
 		let error
 		err.response.data.error !== undefined
 			? (error = err.response.data.error)
 			: (error = "Can't connect to server")
 
-		console.log(err.response.data)
+		// console.log(singleError)
 
 		dispatch({
 			type: LOGIN_FAIL,
-			payload: error,
+			payload: [error[0]],
 		})
 	}
 }
@@ -104,4 +107,9 @@ export const clearInput = () => (dispatch) => {
 	dispatch({
 		type: CLEAR_INPUT,
 	})
+}
+
+//clear errors when navigating between pages
+export const clearErrors = () => (dispatch) => {
+	dispatch({ type: CLEAR_ERRORS })
 }
