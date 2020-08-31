@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap");
+.error-container {
+	margin: auto;
+	width: 65%;
+	border: none;
+	/* border: 1px solid black; */
+}
+
+.error-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	margin: 0.8rem 0 0 0;
+	border: 1px solid red;
+	background-color: #ffd6d6;
+	border-radius: 8px 8px 8px 8px;
+}
+
+.error-icon {
+    vertical-align: middle;
+}
+
+.error-message {
+	text-align: center;
+	color: #ff0000;
+    font-family: "Quicksand", sans-serif;
+    margin-left: 0.3rem;
+	/* vertical-align: text-bottom; */
+}
+
+@media all and (max-width: 375px) {
+	.error-container {
+		margin: auto;
+		width: 100%;
+		/* border: 1px solid black; */
+	}
+	.error-message {
+		text-align: center;
+		color: #ff0000;
+		font-family: "Quicksand", sans-serif;
+		margin-left: 0.3rem;
+		font-size: 13px;
+		/* vertical-align: text-bottom; */
+	}
+}

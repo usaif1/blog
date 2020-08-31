@@ -17,7 +17,7 @@ const authenticate = (req, res, next) => {
 		req.user = decoded.user
 		next()
 	} catch (err) {
-		res.status(500).json({ error: "Invalid Token" })
+		res.status(500).json({ error: "Invalid Token", token: token })
 	}
 }
 

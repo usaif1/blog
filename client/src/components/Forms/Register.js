@@ -1,9 +1,11 @@
 //dependencies
 import React, { useEffect } from "react"
 import { connect } from "react-redux"
+import { v4 as uuid } from "uuid"
 
 //imports
 import Navbar from "../Layout/Navbar"
+import ErrorMessage from "../Error/ErrorMessage"
 import "./Register.css"
 
 //importing actions
@@ -38,8 +40,19 @@ const Register = (props) => {
 		if (props.auth.isAuthenticated && props.auth.user) {
 			props.history.push(`/profile/${props.auth.user._id}`)
 		}
-	}, [props.auth.isAuthenticated, props.history, props.auth.user])
+	}, [
+		props.auth.isAuthenticated,
+		props.history,
+		props.auth.user,
+		props.auth.error,
+	])
 
+	const errors = props.auth.error
+		? props.auth.error.map((error) => (
+				<ErrorMessage key={uuid()} errorMsg={error.msg} />
+		  ))
+		: null
+	// const errors = <ErrorMessage />
 	return (
 		<div>
 			<Navbar />
@@ -85,6 +98,7 @@ const Register = (props) => {
 						</div>
 					</form>
 				</div>
+				{errors}
 			</div>
 		</div>
 	)

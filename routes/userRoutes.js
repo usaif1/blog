@@ -26,10 +26,9 @@ router.post(
 	[
 		check("username", "Please add a username").not().isEmpty(),
 		check("email", "Please enter a valid email").isEmail(),
-		check(
-			"password",
-			"Please enter a password with 6 or more characters"
-		).isLength({ min: 6 }),
+		check("password", "Password must have 6 characters or more").isLength({
+			min: 6,
+		}),
 	],
 	async (req, res) => {
 		const errors = validationResult(req)
@@ -42,7 +41,7 @@ router.post(
 		if (existingUser) {
 			res
 				.status(400)
-				.json({ error: "Email already registered. Please sign in instead" })
+				.json({ error: "Email already registered. Sign in instead" })
 			return
 		}
 
@@ -80,7 +79,9 @@ router.post(
 		try {
 			const existingUser = await User.findOne({ email: email })
 			if (!existingUser) {
-				res.json({ Err: "No user found" })
+				res
+					.status(404)
+					.json({ error: "No user found", email: email, password: password })
 				return
 			}
 			const isMatch = await bcrypt.compare(password, existingUser.password)

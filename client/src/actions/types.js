@@ -1,6 +1,7 @@
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
 export const REGISTER_FAIL = "REGISTER_FAIL"
-export const LOGIN_USER = "LOGIN_USER"
+export const LOGIN_SUCCESS = "LOGIN_USER"
+export const LOGIN_FAIL = "LOGIN_FAIL"
 export const LOGOUT_USER = "LOGOUT_USER"
 export const INPUT_TEXT = "INPUT_TEXT"
 export const CLEAR_INPUT = "CLEAR_INPUT"

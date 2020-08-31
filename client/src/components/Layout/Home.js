@@ -1,11 +1,17 @@
 //dependencies
-import React from "react"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import React, { useEffect } from "react"
+import { connect } from "react-redux"
 
 //imports
 import Navbar from "./Navbar"
 
-const Home = () => {
+const Home = (props) => {
+	useEffect(() => {
+		console.log(props.auth.token, props.auth.isAuthenticated)
+
+		//eslint-disable-next-line
+	}, [props.auth.token, props.auth.isAuthenticated])
+
 	return (
 		<div>
 			<Navbar />
@@ -14,4 +20,8 @@ const Home = () => {
 	)
 }
 
-export default Home
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+})
+
+export default connect(mapStateToProps)(Home)

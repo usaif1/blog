@@ -4,6 +4,8 @@ import {
 	USER_LOADED,
 	AUTH_ERROR,
 	LOGOUT_USER,
+	LOGIN_FAIL,
+	LOGIN_SUCCESS,
 } from "../actions/types"
 
 const initialState = {
@@ -16,8 +18,8 @@ const initialState = {
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case USER_LOADED: {
-			console.log(action.payload)
-			console.log("USER_LOADED reducer being fired")
+			// console.log(action.payload)
+			// console.log("USER_LOADED reducer being fired")
 			return {
 				...state,
 				user: action.payload,
@@ -25,7 +27,8 @@ export default function (state = initialState, action) {
 			}
 		}
 
-		case REGISTER_SUCCESS: {
+		case REGISTER_SUCCESS:
+		case LOGIN_SUCCESS:
 			localStorage.setItem("token", action.payload.token)
 			// console.log("Token set - " + localStorage.getItem("token"))
 			return {
@@ -33,7 +36,7 @@ export default function (state = initialState, action) {
 				token: localStorage.getItem("token"),
 				isAuthenticated: true,
 			}
-		}
+
 		case LOGOUT_USER:
 			localStorage.removeItem("token")
 			return {
@@ -44,6 +47,7 @@ export default function (state = initialState, action) {
 			}
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
+		case LOGIN_FAIL:
 			localStorage.removeItem("token")
 			// console.log("Token removed")
 			return {
