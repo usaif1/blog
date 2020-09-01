@@ -1,10 +1,4 @@
-import {
-	REGISTER_SUCCESS,
-	REGISTER_FAIL,
-	LOGIN_USER,
-	INPUT_TEXT,
-	CLEAR_INPUT,
-} from "../actions/types"
+import { INPUT_TEXT, CLEAR_INPUT } from "../actions/types"
 
 const initialState = {
 	username: "",

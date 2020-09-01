@@ -15,8 +15,13 @@ const User = require("../model/userModel")
 //route - GET /users/getall
 //desc  - show all users
 router.get("/getall", async (req, res) => {
-	const allUsers = await User.find()
+	try {
+		const allUsers = await User.find()
 	res.json({ users: allUsers })
+	} catch (err) {
+		res.status(500).json({error: "Server Error!"})
+	}
+	
 })
 
 //route - POST users/signup

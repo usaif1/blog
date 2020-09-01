@@ -1,13 +1,15 @@
 //dependencies
-import React from "react"
+import React, { useEffect } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 
 //imports
 import { logout } from "../../actions/userActions"
-import "./NavbarProfile.css"
+import "./NavbarUser.css"
 
-const NavbarProfile = (props) => {
+const NavbarUser = (props) => {
+	useEffect(() => {}, [props])
+
 	const onLogoutHandler = (e) => {
 		props.logout()
 	}
@@ -18,17 +20,17 @@ const NavbarProfile = (props) => {
 				<div className="pbar-list-container">
 					<ul className="pbar-ul">
 						<li className="pbar-li">
-							<Link to="" className="pbar-link">
+							<Link to={`/profile/${props.user._id}`} className="pbar-link">
 								Profile
 							</Link>
 						</li>
 						<li className="pbar-li">
-							<Link to="" className="pbar-link">
+							<Link to={`/posts/${props.user._id}`} className="pbar-link">
 								My Posts
 							</Link>
 						</li>
 						<li className="pbar-li">
-							<Link to="" className="pbar-link">
+							<Link to={`/explore`} className="pbar-link">
 								Explore
 							</Link>
 						</li>
@@ -48,4 +50,4 @@ const NavbarProfile = (props) => {
 	)
 }
 
-export default connect(null, { logout })(NavbarProfile)
+export default connect(null, { logout })(NavbarUser)

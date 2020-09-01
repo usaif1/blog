@@ -40,6 +40,8 @@ const Register = (props) => {
 	useEffect(() => {
 		if (props.auth.isAuthenticated && props.auth.user) {
 			props.history.push(`/profile/${props.auth.user._id}`)
+		} else if (localStorage.getItem("token")) {
+			props.loadUser()
 		}
 
 		//eslint-disable-next-line

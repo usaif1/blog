@@ -10,6 +10,7 @@ import {
 	clearInput,
 	login,
 	clearErrors,
+	loadUser,
 } from "../../actions/userActions"
 import ErrorMessage from "../Error/ErrorMessage"
 import "./Login.css"
@@ -37,6 +38,8 @@ const Login = (props) => {
 	useEffect(() => {
 		if (props.auth.isAuthenticated && props.auth.user) {
 			props.history.push(`/profile/${props.auth.user._id}`)
+		} else if (localStorage.getItem("token")) {
+			props.loadUser()
 		}
 		//eslint-disable-next-line
 	}, [props.auth.isAuthenticated, props.auth.user, props.history])
@@ -95,4 +98,5 @@ export default connect(mapStateToProps, {
 	clearInput,
 	login,
 	clearErrors,
+	loadUser,
 })(Login)

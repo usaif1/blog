@@ -7,7 +7,7 @@ import Navbar from "./Navbar"
 
 const Home = (props) => {
 	useEffect(() => {
-		console.log(props.auth.token, props.auth.isAuthenticated)
+		console.log(localStorage.getItem("token"))
 
 		//eslint-disable-next-line
 	}, [props.auth.token, props.auth.isAuthenticated])

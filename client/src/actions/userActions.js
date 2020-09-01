@@ -26,6 +26,7 @@ export const onInput = (details) => (dispatch) => {
 
 //load user
 export const loadUser = () => async (dispatch) => {
+	// console.log("Load User Called")
 	setAuthToken(localStorage.getItem("token"))
 	try {
 		const response = await axios.get("/users/auth")
@@ -35,7 +36,8 @@ export const loadUser = () => async (dispatch) => {
 			payload: response.data.user,
 		})
 	} catch (err) {
-		console.log("Error", err.response.data)
+		console.log(err)
+		console.log("Error", err)
 		dispatch({
 			type: AUTH_ERROR,
 		})
@@ -73,7 +75,7 @@ export const registerUser = (userdetails) => async (dispatch) => {
 export const login = (userdetails) => async (dispatch) => {
 	try {
 		const response = await axios.post("/users/login", userdetails)
-		console.log("Token - ", response.data)
+		// console.log("Token - ", response.data)
 		dispatch({
 			type: LOGIN_SUCCESS,
 			payload: response.data,

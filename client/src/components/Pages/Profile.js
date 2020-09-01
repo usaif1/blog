@@ -4,32 +4,24 @@ import { connect } from "react-redux"
 
 //imports
 import { loadUser, logout } from "../../actions/userActions"
-import NavbarProfile from "../Layout/NavbarProfile"
+import NavbarUser from "../Layout/NavbarUser"
 
 const Profile = (props) => {
 	useEffect(() => {
-		// console.log("Printing auth state", props.auth)
-		if (props.auth.isAuthenticated) {
+		if (localStorage.getItem("token")) {
 			props.loadUser()
-			// console.log(props.auth)
-		} else if (!localStorage.getItem("token")) {
-			props.history.push("/")
 		}
 		// eslint-disable-next-line
 	}, [props.auth.isAuthenticated])
 
-	const onLogoutHandler = (e) => {
-		props.logout()
-	}
-
-	const name = "Some User"
+	const message = props.auth.user
+		? `Welcome ${props.auth.user.username}`
+		: "Loading..."
 
 	return (
 		<div>
-			<NavbarProfile />
-			<h1>Profile</h1>
-			<p>Welcome {props.auth.user ? props.auth.user.username : name}</p>
-			<button onClick={onLogoutHandler}>Logout</button>
+			{props.auth.user ? <NavbarUser user={props.auth.user} /> : "Loading.."}
+			<h1>{message}</h1>
 		</div>
 	)
 }

@@ -7,7 +7,7 @@
 	padding: 0 1rem 0 0;
 	background-color: #ff4f4f;
 	border-radius: 0 0 10px 10px;
-	box-shadow: 1px 3px 5px #616161  ;
+	box-shadow: 1px 2px 2px #999999 ;
 }
 
 .pbar-list-container {
@@ -40,7 +40,7 @@
 	}
 
 	.pbar-li {
-		margin-left: 0.5rem;
+		margin-left: 0.6rem;
     }
     
     .pbar-link {
