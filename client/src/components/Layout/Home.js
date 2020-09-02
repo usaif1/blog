@@ -1,16 +1,16 @@
 //dependencies
-import React, { useEffect } from "react"
+import React from "react"
 import { connect } from "react-redux"
 
 //imports
 import Navbar from "./Navbar"
 
-const Home = (props) => {
-	useEffect(() => {
-		console.log(localStorage.getItem("token"))
+const Home = () => {
+	// useEffect(() => {
+	// 	console.log(localStorage.getItem("token"))
 
-		//eslint-disable-next-line
-	}, [props.auth.token, props.auth.isAuthenticated])
+	// 	//eslint-disable-next-line
+	// }, [props.auth.token, props.auth.isAuthenticated])
 
 	return (
 		<div>

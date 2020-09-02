@@ -24,6 +24,18 @@ router.get("/showall", async (req, res) => {
 	}
 })
 
+//route - GET /post/myposts
+//desc  - show user's posts
+//access - PRIVATE
+router.get("/myposts", auth, async (req, res) => {
+	try {
+		const response = await Post.find({ owner: req.user.id })
+		res.json({ posts: response })
+	} catch (err) {
+		res.status(500).json({ error: err })
+	}
+})
+
 //route - POST /post/addnew
 //desc  - add new post
 //access - PRIVATE
@@ -33,16 +45,15 @@ router.post(
 		auth,
 		[
 			check("post", "The post must have more than 10 words").isLength({
-				min: 6,
+				min: 10,
 			}),
 		],
 	],
 	async (req, res) => {
 		const errors = validationResult(req.body)
-		console.log(req.user)
 		if (!errors.isEmpty()) {
 			console.log(errors)
-			return res.json({ errors: errors })
+			return res.status(400).json({ error: errors.errors })
 		}
 		const user = await User.findById(req.user.id)
 		const username = user.username
@@ -55,9 +66,10 @@ router.post(
 				date: moment().format("LL h:mm:ss a").toString(),
 			})
 			await newPost.save()
-			res.json({ Post: newPost })
+			res.json({ posts: newPost })
 		} catch (err) {
-			res.json({ Error: err })
+			console.log(err)
+			res.status(500).json({ error: err })
 		}
 	}
 )
