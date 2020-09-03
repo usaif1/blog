@@ -44,13 +44,14 @@ router.post(
 	[
 		auth,
 		[
-			check("post", "The post must have more than 10 words").isLength({
+			check("post", "Post should have at least 10 characters").isLength({
 				min: 10,
 			}),
 		],
 	],
 	async (req, res) => {
-		const errors = validationResult(req.body)
+		const errors = validationResult(req)
+		console.log(req.body.post)
 		if (!errors.isEmpty()) {
 			console.log(errors)
 			return res.status(400).json({ error: errors.errors })
@@ -74,13 +75,19 @@ router.post(
 	}
 )
 
-//route - PUT /post/update
-//desc  - update an existing post
-//access - PRIVATE
-
 //route - DELETE /post/delete
 //desc  - delete an existing post
 //access - PRIVATE
+router.delete("/delete", async (req, res) => {
+	try {
+		const post = await Post.findByIdAndDelete(req.body.id)
+		res
+			.status(200)
+			.json({ msg: `Document ${req.body.id} successfully removed!`, post })
+	} catch (err) {
+		res.status(400).json({ error: err })
+	}
+})
 
 //exports
 module.exports = router

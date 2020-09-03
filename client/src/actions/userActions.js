@@ -13,7 +13,6 @@ import {
 } from "./types"
 import axios from "axios"
 import setAuthToken from "../utils/setAuthToken"
-import { getMyPosts } from "./postActions"
 
 //on input
 export const onInput = (details) => (dispatch) => {

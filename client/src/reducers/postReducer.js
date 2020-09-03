@@ -15,7 +15,6 @@ const initialState = {
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case GET_MY_POSTS_SUCCESS:
-			console.log("reducer get posts success fired, payload - ", action.payload)
 			return {
 				...state,
 				posts: [...action.payload],
@@ -24,14 +23,22 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				refresh: !state.refresh,
+				error: null,
 			}
 		case ADD_POST_FAIL:
 			return {
 				...state,
+				error: action.payload,
 			}
 		case GET_MY_POSTS_FAIL:
 			return {
 				...state,
+				error: "Server Error",
+			}
+		case DELETE_POST:
+			return {
+				...state,
+				refresh: !state.refresh,
 			}
 		default:
 			return {

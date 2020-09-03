@@ -6,17 +6,21 @@ import ReactModal from "react-modal"
 //imports
 import NavbarUser from "../Layout/NavbarUser"
 import { loadUser } from "../../actions/userActions"
-import { getMyPosts, addPost } from "../../actions/postActions"
+import { getMyPosts, addPost, deletePost } from "../../actions/postActions"
 import PostCard from "../Elements/PostCard"
+import ErrorMessage from "../Error/ErrorMessage"
 import "./MyPosts.css"
 import "./ModalNewPost.css"
 
 ReactModal.setAppElement(document.querySelector("#root"))
 
 const MyPosts = (props) => {
-	const [state, setState] = useState({ isOpen: false, post: "" })
+	const [state, setState] = useState({
+		isOpen: false,
+		post: "",
+	})
 
-	const { post, loadUser, getMyPosts } = props
+	const { post, loadUser, getMyPosts, deletePost } = props
 
 	useEffect(() => {
 		if (localStorage.getItem("token")) {
@@ -41,6 +45,10 @@ const MyPosts = (props) => {
 		setState({ isOpen: false })
 	}
 
+	const deletePostHandler = (e, id) => {
+		deletePost(id)
+	}
+
 	const onTextInputHandler = (e) => {
 		setState({ post: e.target.value, isOpen: true })
 	}
@@ -49,6 +57,7 @@ const MyPosts = (props) => {
 		<div>
 			{props.auth.user ? <NavbarUser user={props.auth.user} /> : "Loading.."}
 			<div className="userposts-container">
+				{props.post.error ? <ErrorMessage errorMsg={props.post.error} /> : null}
 				<div className="userpostsheading-heading">
 					<h1>My Posts</h1>
 					<button className="userposts-btn-add" onClick={openModal}>
@@ -56,17 +65,23 @@ const MyPosts = (props) => {
 					</button>
 				</div>
 				<div className="userposts-cardlist">
-					{props.post.posts.map((post) => {
-						return (
-							<PostCard
-								key={post._id}
-								id={post._id}
-								name={post.username}
-								post={post.post}
-								date={post.date}
-							/>
-						)
-					})}
+					{props.post.posts.length > 0 ? (
+						props.post.posts.map((post) => {
+							return (
+								<PostCard
+									key={post._id}
+									id={post._id}
+									name={post.username}
+									post={post.post}
+									date={post.date}
+									canDelete={true}
+									deletePost={deletePostHandler}
+								/>
+							)
+						})
+					) : (
+						<ErrorMessage errorMsg={"No Post Found!"} />
+					)}
 				</div>
 				<ReactModal
 					isOpen={state.isOpen}
@@ -85,6 +100,7 @@ const MyPosts = (props) => {
 								placeholder="Share Your Thoughts..."
 								onChange={onTextInputHandler}
 								value={state.post}
+								required
 							></textarea>
 							<div className="modal-newpost-buttons">
 								<input
@@ -112,6 +128,9 @@ const mapStateToProps = (state) => ({
 	post: state.post,
 })
 
-export default connect(mapStateToProps, { loadUser, getMyPosts, addPost })(
-	MyPosts
-)
+export default connect(mapStateToProps, {
+	loadUser,
+	getMyPosts,
+	addPost,
+	deletePost,
+})(MyPosts)

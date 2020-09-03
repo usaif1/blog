@@ -12,7 +12,6 @@ import setAuthToken from "../utils/setAuthToken"
 export const getMyPosts = () => async (dispatch) => {
 	try {
 		const response = await axios.get("/post/myposts")
-		console.log("load user data -", response.data)
 		dispatch({
 			type: GET_MY_POSTS_SUCCESS,
 			payload: response.data.posts,
@@ -36,9 +35,15 @@ export const addPost = (post) => async (dispatch) => {
 			type: ADD_POST_SUCCESS,
 		})
 	} catch (err) {
-		console.log("Add Post Error -", err)
+		console.log("Add Post Error -", err.response.data.error[0].msg)
+		let error
+		err.response.data.error !== undefined
+			? (error = err.response.data.error[0].msg)
+			: (error = "Can't connect to server")
+		console.log(error)
 		dispatch({
 			type: ADD_POST_FAIL,
+			payload: error,
 		})
 	}
 }
@@ -49,4 +54,20 @@ export const clearPosts = () => (dispatch) => {
 }
 
 //delete post
-export const deletePost = (post) => (dispatch) => {}
+export const deletePost = (id) => async (dispatch) => {
+	// console.log("Delete Post called")
+	try {
+		//imp -  delete request doesn't accept body. Instead we send the data under data. However, it is received as req.body
+		const response = await axios.delete("/post/delete", {
+			data: {
+				id: id,
+			},
+		})
+		console.log(response.data)
+		dispatch({
+			type: DELETE_POST,
+		})
+	} catch (err) {
+		console.log(err.response)
+	}
+}

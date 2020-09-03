@@ -3,7 +3,8 @@
 .postcard-container {
 	border: 1px solid grey;
 	border-radius: 8px 8px 8px 8px;
-	box-shadow: 1px 1px 5px #999999;
+	box-shadow: 1px 1px 2px #bdbdbd;
+	background: linear-gradient(to bottom, white, #f3f3f3);
 }
 
 .postcard-datetime {
@@ -23,7 +24,7 @@
 
 .postcard-link {
 	text-decoration: none;
-	color: #282828  ;
+	color: #282828;
 }
 
 .postcard-post-container {
@@ -34,4 +35,12 @@
 	margin-top: 0.3rem;
 	word-wrap: break-word;
 	font-family: "Roboto", sans-serif;
+}
+.postcard-deleteicon-container {
+	padding: 0 0 0.5rem 1rem;
+	/* border: 1px solid black; */
+}
+
+.postcard-deleteicon:hover {
+	cursor: pointer;
 }

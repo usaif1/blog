@@ -4,7 +4,7 @@
 	margin: 0;
 	margin-bottom: 2rem;
 	text-align: center;
-	background-color: #0f46bb;
+	background: linear-gradient(to right, #0084d5, #0f46bb);
 	padding: 5px;
 	color: white;
 	font-family: "Pacifico", cursive;
@@ -104,12 +104,14 @@
 	.modal-newpost-buttons {
 		display: flex;
 		justify-content: center;
-        margin-right: 0;
-        margin-top: 1%;
-    }
-    
-    .modal-newpost-textarea{
-        margin-left: 7%;
-        width: 85%;
-    }
+		margin-right: 0;
+		margin-top: 1%;
+	}
+
+	.modal-newpost-textarea {
+		margin-left: 7%;
+		width: 85%;
+	}
 }
+
+/* #0f46bb */
