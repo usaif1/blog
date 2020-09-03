@@ -28,7 +28,23 @@
 	/* vertical-align: text-bottom; */
 }
 
-@media all and (max-width: 375px) {
+@media all and (max-width: 415px) {
+	.error-container {
+		margin: 0 0 0 1rem;
+		width: 100%;
+		/* border: 1px solid black; */
+	}
+	.error-message {
+		text-align: center;
+		color: #ff0000;
+		font-family: "Quicksand", sans-serif;
+		margin-left: 0.3rem;
+		font-size: 13px;
+		/* vertical-align: text-bottom; */
+	}
+}
+
+@media all and (max-width: 376px) {
 	.error-container {
 		margin: auto;
 		width: 100%;

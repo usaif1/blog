@@ -61,7 +61,7 @@
 
 /* Media Query */
 
-@media all and (max-width: 375px) {
+@media all and (max-width: 415px) {
 	.login-container {
 		margin: auto;
 		/* border: 1px solid green; */

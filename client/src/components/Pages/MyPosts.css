@@ -22,7 +22,6 @@
 	font-size: 15px;
 	font-family: "Raleway", sans-serif;
 	outline: none;
-	
 }
 
 .userposts-btn-add:hover {
@@ -35,6 +34,39 @@
 	grid-template-columns: 450px 450px 450px;
 	grid-auto-rows: max-content;
 	gap: 15px 10px;
+}
+
+@media all and (max-width: 415px) {
+	.userposts-container {
+		width: 100%;
+	}
+
+	.userpostsheading-heading {
+		display: flex;
+		align-items: center;
+		margin-left: 1.3rem;
+		font-family: "Raleway", sans-serif;
+	}
+
+	.userposts-btn-add {
+		margin-left: 38%;
+		color: white;
+		background-color: #10ab00;
+		border: none;
+		height: 45px;
+		padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+		border-radius: 8px 8px 8px 8px;
+		font-size: 15px;
+		font-family: "Raleway", sans-serif;
+	}
+
+	.userposts-cardlist {
+		padding: 0 0.2rem 0 0.3rem;
+		display: grid;
+		grid-template-columns: 400px;
+		grid-auto-rows: max-content;
+		gap: 15px 10px;
+	}
 }
 
 @media all and (max-width: 375px) {

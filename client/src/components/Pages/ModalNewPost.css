@@ -79,7 +79,7 @@
 	padding: 0;
 }
 
-@media all and (max-width: 375px) {
+@media all and (max-width: 415px) {
 	.modal-content {
 		position: absolute;
 		top: 50%;
