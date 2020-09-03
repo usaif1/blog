@@ -1,5 +1,6 @@
 //dependencies
 const express = require("express")
+const path = require("path")
 //const ejs = require("ejs")
 
 //imports
@@ -21,11 +22,17 @@ connectDB()
 app.set("view engine", "ejs")
 
 //setting up routes
-app.get("/", (req, res) => {
-	res.render("addnew")
-})
 app.use("/post", postRoutes)
 app.use("/users", userRoutes)
+
+// server static assets in production
+if (process.env.NODE_ENV === "production") {
+	//set up static folder
+	app.use(express.static("client/build"))
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+	})
+}
 
 //defining port
 const port = process.env.PORT || 5000
