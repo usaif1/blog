@@ -1,7 +1,6 @@
 //dependencies
 const express = require("express")
 const path = require("path")
-//const ejs = require("ejs")
 
 //imports
 const connectDB = require("./db/db")
@@ -17,9 +16,6 @@ app.use(express.urlencoded({ extended: false }))
 
 //connect to db
 connectDB()
-
-//setting up view engine
-app.set("view engine", "ejs")
 
 //setting up routes
 app.use("/post", postRoutes)
