@@ -55,70 +55,83 @@ const MyPosts = (props) => {
 
 	return (
 		<div>
-			{props.auth.user ? <NavbarUser user={props.auth.user} /> : "Loading.."}
-			<div className="userposts-container">
-				{props.post.error ? <ErrorMessage errorMsg={props.post.error} /> : null}
-				<div className="userpostsheading-heading">
-					<h1>My Posts</h1>
-					<button className="userposts-btn-add" onClick={openModal}>
-						Add New
-					</button>
-				</div>
-				<div className="userposts-cardlist">
-					{props.post.posts.length > 0 ? (
-						props.post.posts.map((post) => {
-							return (
-								<PostCard
-									key={post._id}
-									id={post._id}
-									name={post.username}
-									post={post.post}
-									date={post.date}
-									canDelete={true}
-									deletePost={deletePostHandler}
+			{props.auth.user ? (
+				<div>
+					<NavbarUser user={props.auth.user} />
+					<div className="userposts-container">
+						{props.post.error ? (
+							<ErrorMessage errorMsg={props.post.error} />
+						) : null}
+						<div className="userpostsheading-heading">
+							<h1>My Posts</h1>
+							<button className="userposts-btn-add" onClick={openModal}>
+								Add New
+							</button>
+						</div>
+						<div className="userposts-cardlist">
+							{props.post.posts.length > 0 ? (
+								props.post.posts.map((post) => {
+									return (
+										<PostCard
+											key={post._id}
+											id={post._id}
+											name={post.username}
+											post={post.post}
+											date={post.date}
+											canDelete={true}
+											deletePost={deletePostHandler}
+										/>
+									)
+								})
+							) : (
+								<ErrorMessage
+									errorMsg={"No Post Found!"}
+									classname={"nopost"}
+									iconSize={1.5}
+									nopost={true}
 								/>
-							)
-						})
-					) : (
-						<ErrorMessage errorMsg={"No Post Found!"} />
-					)}
-				</div>
-				<ReactModal
-					isOpen={state.isOpen}
-					// style={{ overlay: styles.overlay, content: styles.content }}
-					overlayClassName="modal-overlay"
-					className="modal-content"
-				>
-					<h2 className="modal-newpost-title">Add New Post</h2>
-					<div className="modal-newpost-form-container">
-						<form onSubmit={addNewPost}>
-							<textarea
-								name="post"
-								cols="65"
-								rows="8"
-								className="modal-newpost-textarea"
-								placeholder="Share Your Thoughts..."
-								onChange={onTextInputHandler}
-								value={state.post}
-								required
-							></textarea>
-							<div className="modal-newpost-buttons">
-								<input
-									type="submit"
-									value="Add"
-									className="modal-newpost-button-add"
-								/>
-								<button
-									onClick={closeModal}
-									className="modal-newpost-button-cancel"
-								>
-									Cancel
-								</button>
+							)}
+						</div>
+						<ReactModal
+							isOpen={state.isOpen}
+							// style={{ overlay: styles.overlay, content: styles.content }}
+							overlayClassName="modal-overlay"
+							className="modal-content"
+						>
+							<h2 className="modal-newpost-title">Add New Post</h2>
+							<div className="modal-newpost-form-container">
+								<form onSubmit={addNewPost}>
+									<textarea
+										name="post"
+										cols="65"
+										rows="8"
+										className="modal-newpost-textarea"
+										placeholder="Share Your Thoughts..."
+										onChange={onTextInputHandler}
+										value={state.post}
+										required
+									></textarea>
+									<div className="modal-newpost-buttons">
+										<input
+											type="submit"
+											value="Add"
+											className="modal-newpost-button-add"
+										/>
+										<button
+											onClick={closeModal}
+											className="modal-newpost-button-cancel"
+										>
+											Cancel
+										</button>
+									</div>
+								</form>
 							</div>
-						</form>
+						</ReactModal>
 					</div>
-				</ReactModal>
-			</div>
+				</div>
+			) : (
+				"Loading.."
+			)}
 		</div>
 	)
 }

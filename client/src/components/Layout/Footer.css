@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital@1&display=swap');
+
+.footer-container {
+	margin: auto;
+	width: 90%;
+	border: 1px solid #2962ff;
+	background-color: #2962ff;
+	font-size: 22px;
+}
+
+.footer-content {
+	text-align: center;
+	padding: 1.3rem 0 0 0;
+	color: white;
+	font-family: "PT Serif", serif;
+}
+
+@media all and (max-width: 415px) {
+	.footer-container {
+		margin: auto;
+		width: 100%;
+		border: 1px solid #2962ff;
+		background-color: #2962ff;
+		font-size: 18px;
+	}
+}

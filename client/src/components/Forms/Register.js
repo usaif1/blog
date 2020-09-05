@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid"
 //imports
 import Navbar from "../Layout/Navbar"
 import ErrorMessage from "../Error/ErrorMessage"
+import Footer from "../Layout/Footer"
 import "./Register.css"
 
 //importing actions
@@ -49,7 +50,12 @@ const Register = (props) => {
 
 	const errors = props.auth.error
 		? props.auth.error.map((error) => (
-				<ErrorMessage key={uuid()} errorMsg={error.msg} />
+				<ErrorMessage
+					key={uuid()}
+					errorMsg={error.msg}
+					classname={"error"}
+					iconSize={0.8}
+				/>
 		  ))
 		: null
 	// const errors = <ErrorMessage />
@@ -100,6 +106,7 @@ const Register = (props) => {
 				</div>
 				{errors}
 			</div>
+			<Footer />
 		</div>
 	)
 }

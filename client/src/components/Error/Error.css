@@ -7,30 +7,61 @@
 }
 
 .error-details {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	margin: 0.8rem 0 0 0;
 	border: 1px solid red;
 	background-color: #ffd6d6;
 	border-radius: 8px 8px 8px 8px;
+	padding: 8px;
 }
 
 .error-icon {
-    vertical-align: middle;
+	vertical-align: middle;
 }
 
 .error-message {
 	text-align: center;
 	color: #ff0000;
-    font-family: "Quicksand", sans-serif;
-    margin-left: 0.3rem;
-	/* vertical-align: text-bottom; */
+	font-family: "Quicksand", sans-serif;
+	margin: 0 0 0.1rem 0.3rem;
+	vertical-align: baseline;
+}
+
+.nopost-container {
+	margin: auto;
+	width: 90%;
+	border: none;
+	/* border: 1px solid black; */
+}
+
+.nopost-details {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0.8rem 0 0 0;
+	border: 1px solid gray;
+	background-color: #FFFCA4 ;
+	border-radius: 8px 8px 8px 8px;
+	padding: 20px;
+}
+
+.nopost-icon {
+	vertical-align: middle;
+}
+
+.nopost-message {
+	text-align: center;
+	color: gray  ;
+	font-family: "Quicksand", sans-serif;
+	margin: 0 0 0.1rem 0.3rem;
+	vertical-align: baseline;
 }
 
 @media all and (max-width: 415px) {
 	.error-container {
-		margin: 0 0 0 1rem;
+		/* margin: 0 0 0 1rem; */
 		width: 100%;
 		/* border: 1px solid black; */
 	}

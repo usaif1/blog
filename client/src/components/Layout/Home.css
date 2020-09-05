@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Grandstander:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@1,700&display=swap");
+
+.home-container {
+	width: 50%;
+	margin: auto;
+	/* border: 1px solid black; */
+}
+
+.home-heading {
+	margin: 3rem 0 0 0;
+	padding: 0 0 2rem 0;
+	font-family: "Grandstander", cursive;
+	font-size: 55px;
+	/* border-bottom: 1px solid lightgray; */
+	font-weight: lighter;
+	text-align: center;
+}
+
+.home-content {
+	font-size: 25px;
+	font-family: "Roboto", sans-serif;
+	text-align: center;
+}
+
+.home-footer {
+	margin: auto;
+	width: 90%;
+	border: 1px solid #2962ff;
+	background-color: #2962ff;
+}
+
+.home-footer-content {
+	text-align: center;
+	padding: 1.3rem 0 0 0;
+	color: white;
+	font-family: 'PT Serif', serif;
+	font-size: 22px;
+}
+
+@media all and (max-width: 415px) {
+	.home-container {
+		width: 80%;
+		margin: auto;
+		/* border: 1px solid black; */
+	}
+
+	.home-heading {
+		font-family: "Grandstander", cursive;
+		font-size: 55px;
+		/* border-bottom: 1px solid black; */
+		font-weight: lighter;
+		text-align: center;
+	}
+
+	.home-footer {
+		margin: auto;
+		width: 100%;
+		border: 1px solid #2962ff;
+		background-color: #2962ff;
+		font-size: 18px;
+	}
+}

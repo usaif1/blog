@@ -13,6 +13,7 @@ import {
 	loadUser,
 } from "../../actions/userActions"
 import ErrorMessage from "../Error/ErrorMessage"
+import Footer from "../Layout/Footer"
 import "./Login.css"
 
 const Login = (props) => {
@@ -46,7 +47,12 @@ const Login = (props) => {
 
 	const errors = props.auth.error
 		? props.auth.error.map((error) => (
-				<ErrorMessage key={uuid()} errorMsg={error.msg} />
+				<ErrorMessage
+					key={uuid()}
+					errorMsg={error.msg}
+					classname={"error"}
+					iconSize={0.8}
+				/>
 		  ))
 		: null
 
@@ -84,6 +90,7 @@ const Login = (props) => {
 				</div>
 				{errors}
 			</div>
+			<Footer />
 		</div>
 	)
 }

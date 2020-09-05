@@ -3,20 +3,22 @@ import React from "react"
 import { connect } from "react-redux"
 import { BsXSquare } from "react-icons/bs"
 import { IconContext } from "react-icons"
+import { CgSmileSad } from "react-icons/cg"
 
 //imports
 import "./Error.css"
 
 const ErrorMessage = (props) => {
+	const iconSize = `${props.iconSize}rem`
 	return (
-		<div className="error-container">
-			<div className="error-details">
+		<div className={`${props.classname}-container`}>
+			<div className={`${props.classname}-details`}>
 				<IconContext.Provider
-					value={{ size: "0.8rem", className: "error-icon" }}
+					value={{ size: iconSize, className: "error-icon", color: "#646463" }}
 				>
-					<BsXSquare />
+					{props.classname === "nopost" ? <CgSmileSad /> : <BsXSquare />}
 				</IconContext.Provider>
-				<p className="error-message"> {props.errorMsg}</p>
+				<p className={`${props.classname}-message`}> {props.errorMsg}</p>
 			</div>
 		</div>
 	)
