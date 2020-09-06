@@ -1,14 +1,34 @@
+//dependencies
+import axios from "axios"
+import moment from "moment"
+
+//imports
 import {
 	ADD_POST_SUCCESS,
 	DELETE_POST,
 	ADD_POST_FAIL,
 	GET_MY_POSTS_SUCCESS,
 	GET_MY_POSTS_FAIL,
+	GET_ALL_POSTS,
+	CLEAR_POSTS,
 } from "./types"
-import axios from "axios"
 import setAuthToken from "../utils/setAuthToken"
 
-//load user posts
+//get all posts
+export const getAllPosts = () => async (dispatch) => {
+	try {
+		const response = await axios.get("/post/showall")
+		// console.log(response.data)
+		dispatch({
+			type: GET_ALL_POSTS,
+			payload: response.data,
+		})
+	} catch (err) {
+		console.log(err)
+	}
+}
+
+//get user posts
 export const getMyPosts = () => async (dispatch) => {
 	try {
 		const response = await axios.get("/post/myposts")
@@ -17,19 +37,22 @@ export const getMyPosts = () => async (dispatch) => {
 			payload: response.data.posts,
 		})
 	} catch (err) {
+		console.log(err.response.data.error)
 		dispatch({
 			type: GET_MY_POSTS_FAIL,
-			payload: err.response,
+			payload: err.response.data.error,
 		})
 	}
 }
 
 // add new post
 export const addPost = (post) => async (dispatch) => {
+	const date = moment().format("MMM D, YYYY LTS")
+	console.log(date)
 	setAuthToken(localStorage.getItem("token"))
 	console.log("post -", post)
 	try {
-		const body = { post: post }
+		const body = { post: post, date: date }
 		await axios.post("/post/addnew", body)
 		dispatch({
 			type: ADD_POST_SUCCESS,
@@ -50,7 +73,9 @@ export const addPost = (post) => async (dispatch) => {
 
 //clear posts
 export const clearPosts = () => (dispatch) => {
-	console.log("clear post")
+	dispatch({
+		type: CLEAR_POSTS,
+	})
 }
 
 //delete post

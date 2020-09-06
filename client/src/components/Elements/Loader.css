@@ -1,0 +1,21 @@
+.loader-container {
+	position: absolute;
+	top: 35%;
+	left: 48%;
+}
+
+@media all and (max-width: 375px) {
+	.loader-container {
+		position: absolute;
+		top: 35%;
+		left: 45%;
+	}
+}
+
+@media all and (max-width: 415px) {
+	.loader-container {
+		position: absolute;
+		top: 35%;
+		left: 43%;
+	}
+}

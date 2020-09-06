@@ -1,9 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 .postcard-container {
-	border: 1px solid grey;
-	border-radius: 8px 8px 8px 8px;
-	box-shadow: 1px 1px 2px #bdbdbd;
+	border: 0.5px solid #D4D4D4;
+	/* border-radius: 8px 8px 8px 8px; */
 	background: linear-gradient(to bottom, white, #f3f3f3);
 }
 

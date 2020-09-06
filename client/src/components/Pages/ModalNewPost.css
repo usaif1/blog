@@ -10,6 +10,8 @@
 	font-family: "Pacifico", cursive;
 	font-weight: 100;
 	font-size: 30px;
+	border: none;
+	border-radius: 6px 6px 0 0 ;
 }
 
 .modal-newpost-form-container {
@@ -22,6 +24,7 @@
 	display: flex;
 	justify-content: flex-end;
 	margin-right: 2.4rem;
+	margin-bottom: 3%;
 }
 
 .modal-newpost-button-add {
@@ -65,34 +68,18 @@
 }
 
 .modal-content {
-	position: absolute;
+	width: 32.5%;
+	margin: auto;
 	top: 30%;
-	left: 30%;
-	right: 40%;
-	bottom: 40%;
 	border: 1px solid #0f46bb;
-	background: #fff;
-	overflow: auto;
-	-webkit-overflow-scrolling: touch;
-	border-radius: 15px;
-	outline: none;
-	padding: 0;
+	border-radius: 8px;
 }
 
 @media all and (max-width: 415px) {
 	.modal-content {
-		position: absolute;
-		top: 50%;
-		left: 5%;
-		right: 5%;
-		bottom: 10%;
-		border: 1px solid #0f46bb;
-		background: #fff;
-		overflow: auto;
-		-webkit-overflow-scrolling: touch;
-		border-radius: 15px;
-		outline: none;
-		padding: 0;
+		width: 100%;
+		margin: auto;
+		top: 27%;
 	}
 
 	.modal-newpost-form-container {
@@ -113,5 +100,28 @@
 		width: 85%;
 	}
 }
+@media all and (max-width: 375px) {
+	.modal-content {
+		width: 100%;
+		margin: auto;
+		top: 27%;
+	}
 
-/* #0f46bb */
+	.modal-newpost-form-container {
+		width: auto;
+		margin: auto;
+		padding: 0 0 0 0;
+	}
+
+	.modal-newpost-buttons {
+		display: flex;
+		justify-content: center;
+		margin-right: 0;
+		margin-top: 1%;
+	}
+
+	.modal-newpost-textarea {
+		margin-left: 7%;
+		width: 85%;
+	}
+}

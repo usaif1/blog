@@ -9,6 +9,7 @@ import { loadUser } from "../../actions/userActions"
 import { getMyPosts, addPost, deletePost } from "../../actions/postActions"
 import PostCard from "../Elements/PostCard"
 import ErrorMessage from "../Error/ErrorMessage"
+import Loader from "../Elements/Loader"
 import "./MyPosts.css"
 import "./ModalNewPost.css"
 
@@ -53,15 +54,31 @@ const MyPosts = (props) => {
 		setState({ post: e.target.value, isOpen: true })
 	}
 
+	const postList =
+		post.posts.length > 0 ? (
+			post.posts.map((post) => {
+				return (
+					<PostCard
+						key={post._id}
+						id={post._id}
+						name={post.username}
+						post={post.post}
+						date={post.date}
+						canDelete={true}
+						deletePost={deletePostHandler}
+					/>
+				)
+			})
+		) : (
+			<Loader />
+		)
+
 	return (
 		<div>
 			{props.auth.user ? (
 				<div>
 					<NavbarUser user={props.auth.user} />
 					<div className="userposts-container">
-						{props.post.error ? (
-							<ErrorMessage errorMsg={props.post.error} />
-						) : null}
 						<div className="userpostsheading-heading">
 							<h1>My Posts</h1>
 							<button className="userposts-btn-add" onClick={openModal}>
@@ -69,23 +86,11 @@ const MyPosts = (props) => {
 							</button>
 						</div>
 						<div className="userposts-cardlist">
-							{props.post.posts.length > 0 ? (
-								props.post.posts.map((post) => {
-									return (
-										<PostCard
-											key={post._id}
-											id={post._id}
-											name={post.username}
-											post={post.post}
-											date={post.date}
-											canDelete={true}
-											deletePost={deletePostHandler}
-										/>
-									)
-								})
+							{!post.error ? (
+								postList
 							) : (
 								<ErrorMessage
-									errorMsg={"No Post Found!"}
+									errorMsg={post.error}
 									classname={"nopost"}
 									iconSize={1.5}
 									nopost={true}
@@ -130,7 +135,9 @@ const MyPosts = (props) => {
 					</div>
 				</div>
 			) : (
-				"Loading.."
+				<div className="loader-container">
+					<Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
+				</div>
 			)}
 		</div>
 	)

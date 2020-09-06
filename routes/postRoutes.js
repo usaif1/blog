@@ -14,13 +14,13 @@ const User = require("../model/userModel")
 //access - PUBLIC
 router.get("/showall", async (req, res) => {
 	try {
-		const posts = await Post.find()
+		const posts = await Post.find().sort({ date: -1 })
 		if (posts.length === 0) {
 			return res.json({ Err: "No Post Found" })
 		}
 		res.json(posts)
 	} catch (err) {
-		res.send([err])
+		res.status(500).json({ error: err })
 	}
 })
 
@@ -29,10 +29,13 @@ router.get("/showall", async (req, res) => {
 //access - PRIVATE
 router.get("/myposts", auth, async (req, res) => {
 	try {
-		const response = await Post.find({ owner: req.user.id })
+		const response = await Post.find({ owner: req.user.id }).sort({ date: -1 })
+		if (response.length === 0) {
+			return res.status(404).json({ error: "No Post Found!" })
+		}
 		res.json({ posts: response })
 	} catch (err) {
-		res.status(500).json({ error: err })
+		res.status(500).json({ error: "Server Error" })
 	}
 })
 
@@ -58,13 +61,13 @@ router.post(
 		}
 		const user = await User.findById(req.user.id)
 		const username = user.username
-		const { post } = req.body
+		const { post, date } = req.body
 		try {
 			const newPost = new Post({
 				owner: req.user.id,
 				username: username,
 				post,
-				date: moment().format("LL h:mm:ss a").toString(),
+				date: date,
 			})
 			await newPost.save()
 			res.json({ posts: newPost })

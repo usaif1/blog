@@ -11,6 +11,8 @@ const Profile = (props) => {
 		if (localStorage.getItem("token")) {
 			props.loadUser()
 		}
+		console.log(props.match.params.id)
+
 		// eslint-disable-next-line
 	}, [props.auth.isAuthenticated])
 

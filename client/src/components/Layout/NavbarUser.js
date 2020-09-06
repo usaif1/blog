@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 
 //imports
 import { logout } from "../../actions/userActions"
+import { clearPosts } from "../../actions/postActions"
 import "./NavbarUser.css"
 
 const NavbarUser = (props) => {
@@ -12,6 +13,9 @@ const NavbarUser = (props) => {
 
 	const onLogoutHandler = (e) => {
 		props.logout()
+	}
+	const clearPosts = (e) => {
+		props.clearPosts()
 	}
 
 	return (
@@ -50,4 +54,4 @@ const NavbarUser = (props) => {
 	)
 }
 
-export default connect(null, { logout })(NavbarUser)
+export default connect(null, { logout, clearPosts })(NavbarUser)

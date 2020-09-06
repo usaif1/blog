@@ -5,7 +5,6 @@ import { connect } from "react-redux"
 //imports
 import Navbar from "./Navbar"
 import Footer from "./Footer"
-import ErrorMessage from "../Error/ErrorMessage"
 import "./Home.css"
 
 const Home = () => {
@@ -22,7 +21,6 @@ const Home = () => {
 				<p className="home-content">
 					So share your minds and see what's going on with others!
 				</p>
-				{/* <ErrorMessage errorMsg="No user found" /> */}
 				<Footer />
 			</div>
 		</div>
