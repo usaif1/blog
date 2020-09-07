@@ -11,9 +11,13 @@ const PostCard = (props) => {
 	return (
 		<div className="postcard-container">
 			<h2 className="postcard-heading">
-				<Link className="postcard-link" to={`/profile/${props.id}`}>
-					{props.name}
-				</Link>
+				{props.noRedirect ? (
+					props.name
+				) : (
+					<Link className="postcard-link" to={`/profile/${props.id}`}>
+						{props.name}
+					</Link>
+				)}
 			</h2>
 			<p className="postcard-datetime">{props.date}</p>
 			<div className="postcard-post-container">
@@ -27,7 +31,7 @@ const PostCard = (props) => {
 						<RiDeleteBin6Line
 							onClick={(e) => {
 								// console.log(props.id)
-								props.deletePost(e,props.id)
+								props.deletePost(e, props.id)
 							}}
 						/>
 					</IconContext.Provider>

@@ -1,3 +1,4 @@
+//User Actions
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
 export const REGISTER_FAIL = "REGISTER_FAIL"
 export const LOGIN_SUCCESS = "LOGIN_USER"
@@ -8,6 +9,10 @@ export const CLEAR_INPUT = "CLEAR_INPUT"
 export const USER_LOADED = "USER_LOADED"
 export const AUTH_ERROR = "AUTH_ERROR"
 export const CLEAR_ERRORS = "CLEAR_ERROR"
+export const GET_PROFILE_SUCCESS = "GET_PROFILE_SUCCESS"
+export const GET_PROFILE_FAIL = "GET_PROFILE_FAIL"
+
+//Post Actions
 export const ADD_POST_SUCCESS = "ADD_POST"
 export const ADD_POST_FAIL = "ADD_POST_FAIL"
 export const DELETE_POST = "DELETE_POST"

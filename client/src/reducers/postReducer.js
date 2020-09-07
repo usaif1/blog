@@ -6,6 +6,8 @@ import {
 	ADD_POST_FAIL,
 	GET_ALL_POSTS,
 	CLEAR_POSTS,
+	GET_PROFILE_SUCCESS,
+	GET_PROFILE_FAIL,
 } from "../actions/types"
 
 const initialState = {
@@ -13,6 +15,8 @@ const initialState = {
 	error: null,
 	refresh: false,
 	allposts: [],
+	profileUser: null,
+	profilePosts: [],
 }
 
 export default function (state = initialState, action) {
@@ -52,6 +56,18 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				posts: [],
+			}
+		case GET_PROFILE_SUCCESS:
+			return {
+				...state,
+				profileUser: action.payload.username,
+				profilePosts: [...action.payload.posts],
+				refresh: !state.refresh,
+			}
+		case GET_PROFILE_FAIL:
+			return {
+				...state,
+				error: action.payload,
 			}
 		default:
 			return {

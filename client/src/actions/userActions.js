@@ -10,6 +10,8 @@ import {
 	LOGIN_FAIL,
 	LOGIN_SUCCESS,
 	CLEAR_ERRORS,
+	GET_PROFILE_SUCCESS,
+	GET_PROFILE_FAIL,
 } from "./types"
 import axios from "axios"
 import setAuthToken from "../utils/setAuthToken"
@@ -112,4 +114,18 @@ export const clearInput = () => (dispatch) => {
 //clear errors when navigating between pages
 export const clearErrors = () => (dispatch) => {
 	dispatch({ type: CLEAR_ERRORS })
+}
+
+//get user profile
+export const getProfile = (id) => async (dispatch) => {
+	try {
+		const response = await axios.get(`/users/${id}`)
+		dispatch({
+			type: GET_PROFILE_SUCCESS,
+			payload: response.data,
+		})
+	} catch (err) {
+		console.log(err.response)
+		dispatch({ type: GET_PROFILE_FAIL, payload: err.response.data.error })
+	}
 }

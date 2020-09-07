@@ -11,17 +11,17 @@ const auth = require("../middleware/auth")
 
 // imports
 const User = require("../model/userModel")
+const Post = require("../model/postModel")
 
 //route - GET /users/getall
 //desc  - show all users
 router.get("/getall", async (req, res) => {
 	try {
 		const allUsers = await User.find()
-	res.json({ users: allUsers })
+		res.json({ users: allUsers })
 	} catch (err) {
-		res.status(500).json({error: "Server Error!"})
+		res.status(500).json({ error: "Server Error!" })
 	}
-	
 })
 
 //route - POST users/signup
@@ -124,6 +124,21 @@ router.get("/auth", auth, async (req, res) => {
 		res.json({ user })
 	} catch (error) {
 		res.status(500).json({ error: [{ msg: "Server Error" }] })
+	}
+})
+
+//route - GET /users/:id
+//desc	- get user by id
+router.get("/:id", async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id)
+		if (!user) return res.status(404).json({ error: "No User Found" })
+		const { username } = user
+		const userPost = await Post.find({ owner: req.params.id })
+		res.json({ username, posts: userPost })
+	} catch (err) {
+		console.log(err)
+		res.status(500).json({ error: "Server Error" })
 	}
 })
 

@@ -33,7 +33,7 @@ const Explore = (props) => {
 									return (
 										<PostCard
 											key={post._id}
-											id={post._id}
+											id={post.owner}
 											name={post.username}
 											post={post.post}
 											date={post.date}

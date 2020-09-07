@@ -10,6 +10,7 @@ import "./Error.css"
 
 const ErrorMessage = (props) => {
 	const iconSize = `${props.iconSize}rem`
+	
 	return (
 		<div className={`${props.classname}-container`}>
 			<div className={`${props.classname}-details`}>

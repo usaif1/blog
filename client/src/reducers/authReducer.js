@@ -48,7 +48,6 @@ export default function (state = initialState, action) {
 				error: null,
 			}
 		case REGISTER_FAIL:
-		case AUTH_ERROR:
 		case LOGIN_FAIL:
 			localStorage.removeItem("token")
 			// console.log("Token removed")
@@ -58,12 +57,16 @@ export default function (state = initialState, action) {
 				error: action.payload,
 				isAuthenticated: false,
 			}
+		case AUTH_ERROR:
+			return {
+				...state,
+				error: "Server Error",
+			}
 		case CLEAR_ERRORS:
 			return {
 				...state,
 				error: null,
 			}
-
 		default: {
 			return state
 		}
