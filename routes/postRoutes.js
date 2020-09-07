@@ -54,9 +54,7 @@ router.post(
 	],
 	async (req, res) => {
 		const errors = validationResult(req)
-		console.log(req.body.post)
 		if (!errors.isEmpty()) {
-			console.log(errors)
 			return res.status(400).json({ error: errors.errors })
 		}
 		const user = await User.findById(req.user.id)

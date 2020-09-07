@@ -58,11 +58,7 @@ const Profile = (props) => {
 					<div className="profile-container">
 						<h1 className="profile-username">{props.post.profileUser}</h1>
 						<h1 className="profile-heading">Posts - </h1>
-						{post.profilePosts.length > 0 ? (
-							<div className="profile-cardlist">{postList}</div>
-						) : (
-							<Loader />
-						)}
+						<div className="profile-cardlist">{postList}</div>
 					</div>
 				</div>
 			) : (
