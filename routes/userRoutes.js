@@ -6,14 +6,22 @@ const jwt = require("jsonwebtoken")
 const config = require("config")
 const { check, validationResult } = require("express-validator")
 
+//middleware
+const auth = require("../middleware/auth")
+
 // imports
 const User = require("../model/userModel")
+const Post = require("../model/postModel")
 
 //route - GET /users/getall
 //desc  - show all users
 router.get("/getall", async (req, res) => {
-	const allUsers = await User.find()
-	res.json({ users: allUsers })
+	try {
+		const allUsers = await User.find()
+		res.json({ users: allUsers })
+	} catch (err) {
+		res.status(500).json({ error: "Server Error!" })
+	}
 })
 
 //route - POST users/signup
@@ -23,21 +31,22 @@ router.post(
 	[
 		check("username", "Please add a username").not().isEmpty(),
 		check("email", "Please enter a valid email").isEmail(),
-		check(
-			"password",
-			"Please enter a password with 6 or more characters"
-		).isLength({ min: 6 }),
+		check("password", "Password must have 6 characters or more").isLength({
+			min: 6,
+		}),
 	],
 	async (req, res) => {
 		const errors = validationResult(req)
 		if (!errors.isEmpty()) {
-			return res.json({ errors: errors })
+			return res.status(400).json({ error: errors.errors })
 		}
 		const { username, email, password } = req.body
 		const secret = config.get("jwtSecret")
 		const existingUser = await User.findOne({ email: email })
 		if (existingUser) {
-			res.json({ Err: "Email already registered. Please sign in instead" })
+			res
+				.status(400)
+				.json({ error: [{ msg: "Email already registered. Sign in instead" }] })
 			return
 		}
 
@@ -53,7 +62,7 @@ router.post(
 
 		jwt.sign(payload, secret, (err, token) => {
 			if (err) return console.log(err)
-			res.json({ token: token, user: newUser })
+			res.json({ token: token })
 		})
 	}
 )
@@ -63,19 +72,22 @@ router.post(
 router.post(
 	"/login",
 	[
-		check("email", "Please enter a valid email").isEmail(),
-		check(
-			"password",
-			"Please enter a password with 6 or more characters"
-		).isLength({ min: 6 }),
+		check("email", "Invalid Credentials").isEmail(),
+		check("password", "Invalid Credentials").isLength({
+			min: 6,
+		}),
 	],
 	async (req, res) => {
+		const errors = validationResult(req)
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ error: errors.errors })
+		}
 		const secret = config.get("jwtSecret")
 		const { email, password } = req.body
 		try {
 			const existingUser = await User.findOne({ email: email })
 			if (!existingUser) {
-				res.json({ Err: "No user found" })
+				res.status(404).json({ error: [{ msg: "No user found" }] })
 				return
 			}
 			const isMatch = await bcrypt.compare(password, existingUser.password)
@@ -88,14 +100,14 @@ router.post(
 					},
 				}
 				const jwtToken = jwt.sign(payload, secret, (err, token) => {
-					if (err) return res.send("Token Error")
+					if (err) return res.status(400).send("Token Error")
 
 					res.json({
 						token: token,
 					})
 				})
 			} else {
-				res.json({ Err: "Invalid Credentials" })
+				res.status(400).json({ error: [{ msg: "Invalid Credentials" }] })
 			}
 		} catch (err) {
 			console.log(err)
@@ -103,6 +115,32 @@ router.post(
 		}
 	}
 )
+
+////route - GET /users/auth
+//desc	- get logged in user
+router.get("/auth", auth, async (req, res) => {
+	try {
+		const user = await User.findById(req.user.id).select("-password")
+		res.json({ user })
+	} catch (error) {
+		res.status(500).json({ error: [{ msg: "Server Error" }] })
+	}
+})
+
+//route - GET /users/:id
+//desc	- get user by id
+router.get("/:id", async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id)
+		if (!user) return res.status(404).json({ error: "No User Found" })
+		const { username } = user
+		const userPost = await Post.find({ owner: req.params.id })
+		res.json({ username, posts: userPost })
+	} catch (err) {
+		console.log(err)
+		res.status(500).json({ error: "Server Error" })
+	}
+})
 
 // -------------------------------VIEWS-------------------------------//
 

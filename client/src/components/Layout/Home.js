@@ -1,17 +1,34 @@
 //dependencies
 import React from "react"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { connect } from "react-redux"
 
 //imports
 import Navbar from "./Navbar"
+import Footer from "./Footer"
+import "./Home.css"
 
 const Home = () => {
 	return (
 		<div>
 			<Navbar />
-			<h1>Home Page. Welcome to the blog</h1>
+			<div className="home-container">
+				<h1 className="home-heading">
+					Welcome <span style={{ color: "#FF6100  " }}>Wanderers!</span>
+				</h1>
+				<p className="home-content">
+					The Wall is a place for you to share your thoughts with the world!
+				</p>
+				<p className="home-content">
+					So share your minds and see what's going on with others!
+				</p>
+				<Footer />
+			</div>
 		</div>
 	)
 }
 
-export default Home
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+})
+
+export default connect(mapStateToProps)(Home)

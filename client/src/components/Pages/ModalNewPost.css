@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+.modal-newpost-title {
+	margin: 0;
+	margin-bottom: 2rem;
+	text-align: center;
+	background: linear-gradient(to right, #0084d5, #0f46bb);
+	padding: 5px;
+	color: white;
+	font-family: "Pacifico", cursive;
+	font-weight: 100;
+	font-size: 30px;
+	border: none;
+	border-radius: 6px 6px 0 0 ;
+}
+
+.modal-newpost-form-container {
+	width: 90%;
+	margin: auto;
+	padding: 0 0 0 7%;
+}
+
+.modal-newpost-buttons {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 2.4rem;
+	margin-bottom: 3%;
+}
+
+.modal-newpost-button-add {
+	padding: 8px;
+	margin-right: 0.3rem;
+	border: none;
+	background-color: #23a815;
+	border-radius: 8px;
+	color: #f6f6f6;
+	font-size: 16px;
+	outline: none;
+}
+
+.modal-newpost-button-cancel {
+	border: none;
+	background-color: #ff3131;
+	padding: 8px;
+	border-radius: 8px;
+	color: #f6f6f6;
+	font-size: 16px;
+	outline: none;
+}
+
+.modal-newpost-button-cancel:hover {
+	color: black;
+	cursor: pointer;
+}
+
+.modal-newpost-button-add:hover {
+	color: black;
+	cursor: pointer;
+}
+
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.75);
+}
+
+.modal-content {
+	width: 32.5%;
+	margin: auto;
+	top: 30%;
+	border: 1px solid #0f46bb;
+	border-radius: 8px;
+}
+
+@media all and (max-width: 415px) {
+	.modal-content {
+		width: 100%;
+		margin: auto;
+		top: 27%;
+	}
+
+	.modal-newpost-form-container {
+		width: auto;
+		margin: auto;
+		padding: 0 0 0 0;
+	}
+
+	.modal-newpost-buttons {
+		display: flex;
+		justify-content: center;
+		margin-right: 0;
+		margin-top: 1%;
+	}
+
+	.modal-newpost-textarea {
+		margin-left: 7%;
+		width: 85%;
+	}
+}
+@media all and (max-width: 375px) {
+	.modal-content {
+		width: 100%;
+		margin: auto;
+		top: 27%;
+	}
+
+	.modal-newpost-form-container {
+		width: auto;
+		margin: auto;
+		padding: 0 0 0 0;
+	}
+
+	.modal-newpost-buttons {
+		display: flex;
+		justify-content: center;
+		margin-right: 0;
+		margin-top: 1%;
+	}
+
+	.modal-newpost-textarea {
+		margin-left: 7%;
+		width: 85%;
+	}
+}

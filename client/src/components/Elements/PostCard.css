@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.postcard-container {
+	border: 0.5px solid #D4D4D4;
+	/* border-radius: 8px 8px 8px 8px; */
+	background: linear-gradient(to bottom, white, #f3f3f3);
+}
+
+.postcard-datetime {
+	margin: 0;
+	padding: 0 0 0 1rem;
+	font-family: "Roboto", sans-serif;
+	font-size: 11px;
+	color: #5d5e5e;
+}
+
+.postcard-heading {
+	margin: 0;
+	padding: 0.8rem 0 0 1rem;
+	font-family: "Roboto", sans-serif;
+	font-size: 28px;
+}
+
+.postcard-link {
+	text-decoration: none;
+	color: #282828;
+}
+
+.postcard-post-container {
+	margin-top: 0;
+	padding: 0.8rem 1rem 0 1rem;
+}
+.postcard-text {
+	margin-top: 0.3rem;
+	word-wrap: break-word;
+	font-family: "Roboto", sans-serif;
+}
+.postcard-deleteicon-container {
+	padding: 0 0 0.5rem 1rem;
+	/* border: 1px solid black; */
+}
+
+.postcard-deleteicon:hover {
+	cursor: pointer;
+}
